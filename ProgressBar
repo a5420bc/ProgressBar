@@ -1,0 +1,34 @@
+<?php
+class ProgressBar
+{
+    protected $_showCount = 1;
+
+    protected $_increment;
+
+    protected $_total;
+
+    protected $_count = 1; 
+
+    const SHOW_TIMES = 50;
+
+    public function _construct($num) 
+    {
+        $this->_increment = ($num / self::SHOW_TIMES);
+        $this->_total = $num;
+    }
+
+    public function update($str = '')
+    {
+        $per = ($this->_count / $this->_total) * 100;
+
+        if ($this->_count >= $this->_increment * $this->_showCount) {
+            $status = "";
+            for ($i = 0; $i < $per; $i++) {
+                $status .= "#";
+            }
+            $sta = str_pad($status, 100, '.');
+            echo date('Y-m-d H:i:s') . ' [' . $status . '] ' . $str . PHP_EOL;
+            $this->_showCount++;
+        }
+    }
+}
